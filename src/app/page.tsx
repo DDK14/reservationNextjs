@@ -1,19 +1,17 @@
-import NavBar from "./components/NavBar";
+
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
+import Head from "./head";
 export default function Home() {
   return (
-    <main className="w-screen min-h-screen bg-gray-100">
-      <main className="max-w-screen-2xl m-auto bg-white">
-      <NavBar/>
+    
       <main>
+        <Head/>
         <Header/>
         <div className="py-3 px-36 mt-10 flex flex-wrap text-black">
         <RestaurantCard/>
         </div>
       </main>
-    </main>
-  </main>
     
   );
 }
