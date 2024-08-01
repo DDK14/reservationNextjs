@@ -5,6 +5,7 @@ import RestaurantCard from "./components/RestaurantCard";
 import SearchSideBar from "./components/SearchSideBar";
 import Head from "./head";
 import { equal } from "assert";
+import Reviews from "../restaurant/[slug]/components/Reviews";
 
 interface SearchParams {city?: string, cuisine?: string , price?: PRICE}
 
@@ -41,7 +42,8 @@ const fetchRestauranByCity = (searchParams :SearchParams) =>{
       cuisine:true,
       location:true,
       slug:true,
-      price:true
+      price:true,
+      reviews:true
   };
 
   return prisma.restaurant.findMany({
