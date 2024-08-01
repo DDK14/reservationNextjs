@@ -1,7 +1,7 @@
-export default function Description() {
+export default function Description( {description}: {description:string}) {
   return (
     <div className="mt-4">
-    <p className="text-lg font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo at repellendus ipsum quasi cum quas, deleniti porro sunt asperiores dolore quis in voluptas accusantium? Ad ipsam iusto veniam qui reprehenderit.</p>
+    <p className="text-lg font-light">{description}</p>
   </div>
   )
 }

@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export default function RestaurantNavBar(){
+export default function RestaurantNavBar({slug} : {slug:string}){
     return(
         <nav className="flex text-reg border-b pb-2 text-black">
-            <Link href="/restaurant/fine-dine" className="mr-7">Overview</Link>
-            <Link href="/restaurant/fine-dine/menu" className="mr-7">Menu</Link>
+            <Link href={`/restaurant/${slug}`} className="mr-7">Overview</Link>
+            <Link href={`/restaurant/${slug}/menu`} className="mr-7">Menu</Link>
           </nav>
     )
 }
