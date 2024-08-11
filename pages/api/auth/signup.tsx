@@ -1,8 +1,12 @@
 import { NextApiRequest,NextApiResponse } from "next"
 import validator from "validator";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import * as jose from "jose";
 const prisma = new PrismaClient();
 export default async function handler(req: NextApiRequest,res:NextApiResponse,) {
+
+    // validate user
     if(req.method==="POST"){
         const {firstName, lastName,email,phone,city,password}= req.body;
         const errors: string[]=[];
@@ -49,22 +53,47 @@ export default async function handler(req: NextApiRequest,res:NextApiResponse,) 
             return res.status(400).json({errorMessage:errors[0]})
         }
 
-        // const userWithEmail= await prisma.user.findUnique({
-        //     where:{ 
-        //         email
-        //     }
-        // })  
-        // if(userWithEmail){
-        //     return res.status(400).json({errorMessage:"Already"})
-        // }
 
-        res.status(200).json({
-           hello:" body"
+        //email validation ------error 
+
+        const userWithEmail= await prisma.user.findUnique({
+            where:{ 
+                email
+            }
+        })  
+        if(userWithEmail){
+            return res.status(400).json({errorMessage:"Already"})
+        }
+
+        // hashing the password
+        const hashedPassword = await bcrypt.hash(password,10);
+
+        // Connecting to db
+        const user = await prisma.user.create({
+            data: {
+                    first_name:firstName,
+                    last_name:lastName,
+                    password:hashedPassword,
+                    city,
+                    phone,
+                    email,
+
+            }
+        })
+
+
+        // creating JWT
+        const alg = "HS256"
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+        const token = await new jose.SignJWT({email:user.email})
+        .setProtectedHeader({alg})
+        .setExpirationTime("24h")
+        .sign(secret)
+        return res.status(200).json({
+           token,
         }) 
     }
 
-//   return (
-//     <div>signup</div>
-//   )
+    return res.status(404).json("Unknown endpoint")  
 }
  
