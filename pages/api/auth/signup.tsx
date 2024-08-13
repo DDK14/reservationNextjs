@@ -62,7 +62,7 @@ export default async function handler(req: NextApiRequest,res:NextApiResponse,) 
             }
         })  
         if(userWithEmail){
-            return res.status(400).json({errorMessage:"Already"})
+            return res.status(400).json({errorMessage:"Email has already been registered. "})
         }
 
         // hashing the password
