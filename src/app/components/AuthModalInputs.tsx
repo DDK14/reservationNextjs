@@ -12,7 +12,7 @@ interface Props{
 }
 export default function AuthModalInputs({inputs,handleChangeInput,isSignin}:Props) {
   return (
-    <div>
+    <div className="text-black">
         { isSignin ? null :(<div className="my-3 flex justify-between text-sm">
             <input type="text" className="border rounded p-2 py-3 w-[49%]" placeholder="First Name" value={inputs.firstName} onChange={handleChangeInput} name="firstName"/>
             <input type="text" className="border rounded p-2 py-3 w-[49%]" placeholder="Last Name " value={inputs.lastName} onChange={handleChangeInput} name="lastName"/>
